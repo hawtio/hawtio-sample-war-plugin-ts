@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.hawt.examples</groupId>
+  <artifactId>hawtio-sample-war-plugin</artifactId>
+  <version>1.0.0</version>
+  <name>Hawtio Sample WAR Plugin</name>
+  <packaging>war</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <!-- Versions -->
+    <spring-boot-version>2.7.9</spring-boot-version>
+    <hawtio-version>3.0-SNAPSHOT</hawtio-version>
+    <servlet-api-version>4.0.1</servlet-api-version>
+    <slf4j-version>2.0.7</slf4j-version>
+    <logback-version>1.4.6</logback-version>
+    <frontend-maven-plugin-version>1.12.1</frontend-maven-plugin-version>
+    <!-- Jetty 11 doesn't support javax.servlet -->
+    <jetty-version>10.0.14</jetty-version>
+
+    <!-- Path to Hawtio TypeScript plugin -->
+    <plugin.path>sample-plugin</plugin.path>
+  </properties>
+
+  <dependencies>
+    <!--
+      We only need to embed this dependency in the war, this contains
+      a nice helper class that our plugin can use to export its plugin
+      mbean.
+    -->
+    <dependency>
+      <groupId>io.hawt</groupId>
+      <artifactId>hawtio-plugin-mbean</artifactId>
+      <version>${hawtio-version}</version>
+    </dependency>
+
+    <!-- Servlet API is provided by the container -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet-api-version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback-version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>${project.artifactId}</finalName>
+
+    <plugins>
+      <!-- Build the plugin TypeScript subproject from Maven -->
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin-version}</version>
+        <configuration>
+          <workingDirectory>${plugin.path}</workingDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install node and yarn</id>
+            <goals>
+              <goal>install-node-and-yarn</goal>
+            </goals>
+            <configuration>
+              <nodeVersion>v16.15.0</nodeVersion>
+              <yarnVersion>v1.22.19</yarnVersion>
+            </configuration>
+          </execution>
+          <execution>
+            <id>yarn install</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>yarn build</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>build</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <webResources>
+            <!-- Add the plugin build to web resources -->
+            <resource>
+              <directory>${plugin.path}/build</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>io.hawt</groupId>
+                  <artifactId>hawtio-war</artifactId>
+                  <version>${hawtio-version}</version>
+                  <type>war</type>
+                  <outputDirectory>${project.build.directory}/deploy</outputDirectory>
+                  <destFileName>hawtio.war</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty-version}</version>
+        <configuration>
+          <deployMode>EMBED</deployMode>
+          <scan>10</scan>
+          <webApp>
+            <contextPath>/</contextPath>
+            <resourceBases>
+              <resourceBase>src/main/webapp</resourceBase>
+              <resourceBases>${plugin.path}/build</resourceBases>
+            </resourceBases>
+          </webApp>
+          <contextHandlers>
+            <contextHandler implementation="org.eclipse.jetty.maven.plugin.MavenWebAppContext">
+              <war>${project.build.directory}/deploy/hawtio.war</war>
+              <contextPath>/hawtio</contextPath>
+            </contextHandler>
+          </contextHandlers>
+          <modules>
+            <module>jmx</module>
+          </modules>
+          <systemProperties>
+            <hawtio.authenticationEnabled>false</hawtio.authenticationEnabled>
+          </systemProperties>
+        </configuration>
+      </plugin>
+
+      <!-- Clean up the plugin's 'build/' and 'node_modules/' directories as well -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${basedir}/${plugin.path}/build</directory>
+              <includes>
+                <include>**/*</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+            <fileset>
+              <directory>${basedir}/${plugin.path}/node_modules</directory>
+              <includes>
+                <include>**/*</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
