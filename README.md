@@ -1,33 +1,44 @@
-# Hawtio simple plugin example
+# Hawtio Sample WAR Plugin
 
-[simple-plugin](https://github.com/hawtio/hawtio/tree/main/examples/simple-plugin) is an introduction to writing a standalone Hawtio plugin that can be deployed in a server alongside the main `hawtio.war` application.
+This sample demonstrates how to write a plugin for [Hawtio v3](https://github.com/hawtio/hawtio) as a WAR file; WAR plugins are useful when deploying Hawtio and plugins to an application server such as Jetty, WildFly, and Tomcat.
 
-The important bits are:
+## Key components
 
-- **`pom.xml`** -- When building plugins with Maven there is a few nice tricks that can be used to ease the build process. Have a look in this project's `pom.xml` to see how the build filters the `web.xml` and uses the `maven-antrun-plugin` to discover JavaScript files. The project creates a war file that can be deployed in various application services and is also OSGi-ified so it deploys nicely into Apache Karaf.
+The key components of this sample are as follows:
 
-- **`src/main/webapp/plugin/simplePlugin.js`** -- This is the main entry point of the plugin, and well, it is the only plugin JavaScript file. It defines a JavaScript module called `Simple` and an AngularJS (1.x) module called `simple-plugin` and pass the AngularJS module name to Hawtio's plugin loader. It also defines the one component (= HTML template + controller) used in the plugin. Besides the `hawtioPluginLoader` call, this is mostly fairly standard AngularJS stuff.
+| File/Directory | Description |
+| -------------- | ----------- |
+| [sample-plugin/](./sample-plugin) | The Hawtio v3 plugin project written in TypeScript. Since a Hawtio plugin is based on React and [Webpack Module Federation](https://module-federation.github.io/), this project uses Yarn v3 and [CRACO](https://craco.js.org/) as the build tools. You can use any JS/TS tools for developing a Hawtio plugin so long as they can build a React and Webpack Module Federation application. |
+| [craco.config.js](./sample-plugin/craco.config.js) | The React application configuration file. The plugin interface is defined with `ModuleFederationPlugin`. The name `samplePlugin` and the module name `./plugin` at the `exposes` section correspond to the parameters `scope` and `module` set to `HawtioPlugin` in `PluginContextListener.java`. |
+| [PluginContextListener.java](./src/main/java/io/hawt/examples/sampleplugin/PluginContextListener.java) | The only Java code that is required to register the Hawtio plugin. To register a plugin, it should instantiate [HawtioPlugin](https://github.com/hawtio/hawtio/blob/hawtio-3.0-M3/hawtio-plugin-mbean/src/main/java/io/hawt/web/plugin/HawtioPlugin.java) and invoke its `init()` method at initialisation time. The three key parameters to pass to `HawtioPlugin` are `url`, `scope`, and `module`, which are required by Module Federation. (See also the description of `craco.config.js`.) This servlet listener is then configured in `web.xml`. |
+| [pom.xml](./pom.xml) | This project uses Maven as the primary tool for building. Here, the `frontend-maven-plugin` is used to trigger the build of `sample-plugin` TypeScript project, then the built output is included as resources for packaging the WAR archive. |
 
-## Installation
+## How to run
 
-### WildFly / Apache Tomcat / Jetty
+### Build
 
-Copy the simple-plugin war file as the following name:
+The following command first builds the `sample-plugin` frontend project and then compiles and packages the main Java project together.
 
-    simple-plugin.war
+```console
+mvn clean install
+```
 
-to the `standalone/deployments/` directory of WildFly or the `deploy/` directory of Apache Tomcat / Jetty.
+Building the frontend project can take time, so if you build it once and make no changes on the project afterwards, you can speed up the whole build by skipping the frontend part next time.
 
-### Apache Karaf / Red Hat Fuse (on Karaf)
+```console
+mvn install -Dskip.yarn
+```
 
-From the CLI type:
+### Deploy
 
-    install -s mvn:io.hawt/simple-plugin/2.8.0/war
+Copy the built file `target/hawtio-sample-war-plugin.war` to the deployment directory of the application server of your choice.
 
-(Substitute `2.8.0` with the version of choice.)
+### Test run
 
-### Spring Boot
+You can quickly run and test the application by using `jetty-maven-plugin` configured in `pom.xml`. It launches an embedded Jetty server and deploy the plugin WAR application, as well as the main `hawtio.war`.
 
-For Spring Boot, you don't need an extra war like this example to deploy a custom plugin. There is a better way, and you can directly put a JavaScript plugin into the Spring Boot application to extend Hawtio features.
+```console
+mvn jetty:run -Dskip.yarn
+```
 
-See [Spring Boot example](https://github.com/hawtio/hawtio/tree/main/examples/springboot) instead for more details.
+You can access the Hawtio console with the sample plugin at: <http://localhost:8080/hawtio/>
