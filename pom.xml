@@ -25,15 +25,15 @@
     <!-- Jetty 11 doesn't support javax.servlet -->
     <jetty-version>10.0.14</jetty-version>
 
-    <!-- Path to Hawtio TypeScript plugin -->
+    <!-- Path to the Hawtio TypeScript plugin -->
     <plugin.path>sample-plugin</plugin.path>
   </properties>
 
   <dependencies>
     <!--
-      We only need to embed this dependency in the war, this contains
+      We only need to embed this dependency in the WAR. This contains
       a nice helper class that our plugin can use to export its plugin
-      mbean.
+      MBean.
     -->
     <dependency>
       <groupId>io.hawt</groupId>
