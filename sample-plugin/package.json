@@ -7,17 +7,23 @@
   "private": true,
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
-    "test": "craco test"
+    "build": "craco build && yarn replace-version",
+    "test": "craco test",
+    "replace-version": "replace __PACKAGE_VERSION_PLACEHOLDER__ $npm_package_version ./build/static/js -r --include=\"*.js\""
   },
   "dependencies": {
     "@hawtio/react": "^0.2.0",
+    "@patternfly/react-charts": "^6.94.19",
+    "@patternfly/react-core": "^4.276.8",
+    "@patternfly/react-table": "^4.113.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0"
+    "@craco/craco": "^7.1.0",
+    "@hawtio/backend-middleware": "^1.0.3",
+    "replace": "^1.2.2"
   },
   "eslintConfig": {
     "extends": [
