@@ -72,8 +72,9 @@ module.exports = {
   // For plugin development
   devServer: {
     setupMiddlewares: (middlewares, devServer) => {
-      // Redirect / to /hawtio/
-      devServer.app.get('/', (req, res) => res.redirect('/hawtio/'))
+      // Redirect / or /hawtio to /hawtio/
+      devServer.app.get('/', (_, res) => res.redirect('/hawtio/'))
+      devServer.app.get('/hawtio$', (_, res) => res.redirect('/hawtio/'))
 
       const username = 'developer'
       const login = true
@@ -91,9 +92,11 @@ module.exports = {
       // hawtconfig.json mock
       devServer.app.get('/hawtio/hawtconfig.json', (req, res) => res.send(JSON.stringify(hawtconfig)))
 
-      middlewares.push({
+      // Hawtio backend middleware should be run before other middlewares (thus 'unshift')
+      // in order to handle GET requests to the proxied Jolokia endpoint.
+      middlewares.unshift({
         name: 'hawtio-backend',
-        path: '/proxy',
+        path: '/hawtio/proxy',
         middleware: hawtioBackend({
           // Uncomment it if you want to see debug log for Hawtio backend
           logLevel: 'debug',
