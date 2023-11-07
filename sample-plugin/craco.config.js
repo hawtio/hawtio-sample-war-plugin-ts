@@ -1,8 +1,10 @@
 const { ModuleFederationPlugin } = require('webpack').container
+const CracoEsbuildPlugin = require('craco-esbuild')
 const { hawtioBackend } = require('@hawtio/backend-middleware')
 const { dependencies } = require('./package.json')
 
 module.exports = {
+  plugins: [{ plugin: CracoEsbuildPlugin }],
   webpack: {
     plugins: {
       add: [
