@@ -1,7 +1,7 @@
 package io.hawt.examples.sampleplugin;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 import io.hawt.web.plugin.HawtioPlugin;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class PluginContextListener implements ServletContextListener {
         plugin = new HawtioPlugin()
             .scope("samplePlugin")
             .module("./plugin")
-            .url("http://localhost:8080");
+            .url("/sample-plugin");
 
         /*
          * By default, Hawtio expects "plugin" as the name of the Hawtio plugin entry function.

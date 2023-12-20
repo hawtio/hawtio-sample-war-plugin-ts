@@ -2217,9 +2217,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hawtio/react@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "@hawtio/react@npm:1.0.1"
+"@hawtio/react@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@hawtio/react@npm:1.0.2"
   dependencies:
     "@hawtio/camel-model-v3": "npm:@hawtio/camel-model@^3.21.2"
     "@hawtio/camel-model-v4": "npm:@hawtio/camel-model@~4.0.3"
@@ -2237,14 +2237,14 @@ __metadata:
     "@types/jquery": ^3.5.29
     "@types/node": ^18.19.3
     "@types/react": ^18.2.23
-    "@types/react-dom": ^18.2.17
+    "@types/react-dom": ^18.2.18
     "@types/react-router-dom": ^5.3.3
     dagre: ^0.8.5
     eventemitter3: ^5.0.1
-    jolokia.js: ^2.0.0-m4.0
+    jolokia.js: ^2.0.0
     jquery: ^3.7.1
     js-logger: ^1.6.1
-    keycloak-js: ^23.0.1
+    keycloak-js: ^23.0.3
     monaco-editor: ^0.45.0
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -2264,7 +2264,7 @@ __metadata:
   peerDependenciesMeta:
     keycloak-js:
       optional: true
-  checksum: 56481bc6d12aca54606bd5253de4e5b452736c4aab1d1196339e1bf124267ddafe3e8415e43337745c5087f6fe2793b5e26a5aea0c3fe808fa5e22b9f8d0a76d
+  checksum: 698fd85bc41072141cf3a53651a84604a15bb4648be99275cbd2a63384eb5de39bd9b112ceb67e48141ef765cbda8fea431abfe7f83ebfe9c1940adaeeed9cd3
   languageName: node
   linkType: hard
 
@@ -4178,7 +4178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.2.17":
+"@types/react-dom@npm:^18.2.18":
   version: 18.2.18
   resolution: "@types/react-dom@npm:18.2.18"
   dependencies:
@@ -9162,7 +9162,7 @@ __metadata:
   dependencies:
     "@craco/craco": ^7.1.0
     "@hawtio/backend-middleware": ^1.0.4
-    "@hawtio/react": ^1.0.0
+    "@hawtio/react": ^1.0.2
     "@patternfly/react-charts": ^7.1.1
     "@patternfly/react-core": ^4.278.0
     "@patternfly/react-table": ^4.113.6
@@ -10813,9 +10813,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jolokia.js@npm:^2.0.0-m4.0":
-  version: 2.0.0-m4.0
-  resolution: "jolokia.js@npm:2.0.0-m4.0"
+"jolokia.js@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "jolokia.js@npm:2.0.0"
   dependencies:
     jquery: ^3.7.1
   peerDependencies:
@@ -10826,7 +10826,7 @@ __metadata:
       optional: true
     jsdom:
       optional: true
-  checksum: 730335678783e656626e055959e83b87af9067ee14c900247c61ec929cdd32166f6963933009247b6470edd5d6fe0e6b77744da528669b8243b842066fd86856
+  checksum: 4b99c7de9bc948761c1f0b2bce924bfae2b1b12bbb9148ceee7227ae498fcfc49f70a272e02853439196298e69fec94b9d8611f75fc527326d388a5e87dd87a9
   languageName: node
   linkType: hard
 
@@ -11052,7 +11052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keycloak-js@npm:^23.0.1":
+"keycloak-js@npm:^23.0.3":
   version: 23.0.3
   resolution: "keycloak-js@npm:23.0.3"
   dependencies:

@@ -16,16 +16,15 @@
     <maven.compiler.target>11</maven.compiler.target>
 
     <!-- Versions -->
-    <spring-boot-version>2.7.17</spring-boot-version>
-    <hawtio-version>3.0.0</hawtio-version>
-    <servlet-api-version>4.0.1</servlet-api-version>
-    <slf4j-version>2.0.7</slf4j-version>
-    <logback-version>1.4.6</logback-version>
-    <node-version>v18.18.2</node-version>
-    <yarn-version>v1.22.19</yarn-version>
-    <frontend-maven-plugin-version>1.12.1</frontend-maven-plugin-version>
-    <!-- Jetty 11 doesn't support javax.servlet -->
-    <jetty-version>10.0.18</jetty-version>
+    <spring-boot-version>3.1.6</spring-boot-version>
+    <hawtio-version>4.0-SNAPSHOT</hawtio-version>
+    <servlet-api-version>5.0.0</servlet-api-version>
+    <slf4j-version>2.0.9</slf4j-version>
+    <logback-version>1.4.14</logback-version>
+    <node-version>v20.9.0</node-version>
+    <yarn-version>v1.22.21</yarn-version>
+    <frontend-maven-plugin-version>1.15.0</frontend-maven-plugin-version>
+    <jetty-version>11.0.18</jetty-version>
 
     <!-- Path to the Hawtio TypeScript plugin -->
     <plugin.path>sample-plugin</plugin.path>
@@ -45,8 +44,8 @@
 
     <!-- Servlet API is provided by the container -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
       <version>${servlet-api-version}</version>
       <scope>provided</scope>
     </dependency>
@@ -65,7 +64,7 @@
   </dependencies>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
+    <finalName>sample-plugin</finalName>
 
     <plugins>
       <!-- Build the plugin TypeScript subproject from Maven -->
@@ -157,7 +156,7 @@
           <deployMode>EMBED</deployMode>
           <scan>10</scan>
           <webApp>
-            <contextPath>/</contextPath>
+            <contextPath>/${project.build.finalName}</contextPath>
             <resourceBases>
               <resourceBase>src/main/webapp</resourceBase>
               <resourceBases>${plugin.path}/build</resourceBases>
@@ -174,6 +173,7 @@
           </modules>
           <systemProperties>
             <hawtio.authenticationEnabled>false</hawtio.authenticationEnabled>
+            <hawtio.disableProxy>true</hawtio.disableProxy>
           </systemProperties>
         </configuration>
       </plugin>
