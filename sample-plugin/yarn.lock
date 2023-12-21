@@ -2217,9 +2217,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hawtio/react@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@hawtio/react@npm:1.0.2"
+"@hawtio/react@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@hawtio/react@npm:1.0.3"
   dependencies:
     "@hawtio/camel-model-v3": "npm:@hawtio/camel-model@^3.21.2"
     "@hawtio/camel-model-v4": "npm:@hawtio/camel-model@~4.0.3"
@@ -2264,7 +2264,7 @@ __metadata:
   peerDependenciesMeta:
     keycloak-js:
       optional: true
-  checksum: 698fd85bc41072141cf3a53651a84604a15bb4648be99275cbd2a63384eb5de39bd9b112ceb67e48141ef765cbda8fea431abfe7f83ebfe9c1940adaeeed9cd3
+  checksum: a1912483763f69aa59544989dc6ce61a01ae6ea71d68f140f80d5ee84e867e0c4608bc952f95e9b657723a25a4578754fd6ec00e3009b66747a518bc3456da39
   languageName: node
   linkType: hard
 
@@ -9162,7 +9162,7 @@ __metadata:
   dependencies:
     "@craco/craco": ^7.1.0
     "@hawtio/backend-middleware": ^1.0.4
-    "@hawtio/react": ^1.0.2
+    "@hawtio/react": ^1.0.3
     "@patternfly/react-charts": ^7.1.1
     "@patternfly/react-core": ^4.278.0
     "@patternfly/react-table": ^4.113.6

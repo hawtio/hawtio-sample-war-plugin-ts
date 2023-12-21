@@ -15,6 +15,56 @@ The key components of this sample are as follows:
 | [PluginContextListener.java](./src/main/java/io/hawt/examples/sampleplugin/PluginContextListener.java) | The only Java code that is required to register the Hawtio plugin. To register a plugin, it should instantiate [HawtioPlugin](https://github.com/hawtio/hawtio/blob/hawtio-3.0-M3/hawtio-plugin-mbean/src/main/java/io/hawt/web/plugin/HawtioPlugin.java) and invoke its `init()` method at initialisation time. The three key parameters to pass to `HawtioPlugin` are `url`, `scope`, and `module`, which are required by Module Federation. (See also the description of `craco.config.js`.) This servlet listener is then configured in `web.xml`. |
 | [pom.xml](./pom.xml) | This project uses Maven as the primary tool for building. Here, the `frontend-maven-plugin` is used to trigger the build of `sample-plugin` TypeScript project, then the built output is included as resources for packaging the WAR archive. |
 
+### Branding and styles customisation via a WAR plugin
+
+This example also demonstrates how branding and styles can be customised from a WAR plugin.
+
+The Plugin API `configManager` provides `configure(configurer: (config: Hawtconfig) => void)` method and you can customise the `Hawtconfig` by invoking it from the plugin's `index.ts`.
+
+> [!NOTE]
+> It is important that you invoke `configManager.configure()` at the top level of `index.ts`. If you don't, the customisation of branding and styles is not applied to the console.
+
+[sample-plugin/src/sample-plugin/index.ts](sample-plugin/src/sample-plugin/index.ts)
+
+```typescript
+
+configManager.configure(config => {
+  // Branding & styles
+  config.branding = {
+    appName: 'Hawtio Sample WAR Plugin',
+    showAppName: true,
+    appLogoUrl: '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png',
+    css: '/sample-plugin/branding/app.css',
+    favicon: '/sample-plugin/branding/favicon.ico',
+  }
+  // Login page
+  config.login = {
+    description: 'Login page for Hawtio Sample WAR Plugin application.',
+    links: [
+      { url: '#terms', text: 'Terms of use' },
+      { url: '#help', text: 'Help' },
+      { url: '#privacy', text: 'Privacy policy' },
+    ],
+  }
+  // About modal
+  if (!config.about) {
+    config.about = {}
+  }
+  config.about.title = 'Hawtio Sample WAR Plugin'
+  config.about.description = 'About page for Hawtio Sample WAR Plugin application.'
+  config.about.imgSrc = '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png'
+  if (!config.about.productInfo) {
+    config.about.productInfo = []
+  }
+  config.about.productInfo.push(
+    { name: 'Hawtio Sample Plugin - simple-plugin', value: '1.0.0' },
+    { name: 'Hawtio Sample Plugin - custom-tree', value: '1.0.0' },
+  )
+  // If you want to disable specific plugins, you can specify the paths to disable them.
+  //config.disabledRoutes = ['/simple-plugin']
+})
+```
+
 ## How to run
 
 ### Build
