@@ -17,7 +17,7 @@
 
     <!-- Versions -->
     <spring-boot-version>3.1.6</spring-boot-version>
-    <hawtio-version>4.0-SNAPSHOT</hawtio-version>
+    <hawtio-version>4.0-beta-1</hawtio-version>
     <servlet-api-version>5.0.0</servlet-api-version>
     <slf4j-version>2.0.9</slf4j-version>
     <logback-version>1.4.14</logback-version>
