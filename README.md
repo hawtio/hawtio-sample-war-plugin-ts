@@ -21,9 +21,6 @@ This example also demonstrates how branding and styles can be customised from a 
 
 The Plugin API `configManager` provides `configure(configurer: (config: Hawtconfig) => void)` method and you can customise the `Hawtconfig` by invoking it from the plugin's `index.ts`.
 
-> [!NOTE]
-> It is important that you invoke `configManager.configure()` at the top level of `index.ts`. If you don't, the customisation of branding and styles is not applied to the console.
-
 [sample-plugin/src/sample-plugin/index.ts](sample-plugin/src/sample-plugin/index.ts)
 
 ```typescript
