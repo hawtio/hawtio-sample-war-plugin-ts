@@ -72,25 +72,41 @@ module.exports = {
   // For plugin development
   devServer: {
     setupMiddlewares: (middlewares, devServer) => {
+      // Enabling branding in dev mode
+      devServer.app.use((req, _, next) => {
+        if (req.url.startsWith('/sample-plugin')) {
+          req.url = req.url.replace(/\/sample-plugin(.*)/, '/hawtio$1')
+        }
+        next()
+      })
+
       // Redirect / or /hawtio to /hawtio/
       devServer.app.get('/', (_, res) => res.redirect('/hawtio/'))
       devServer.app.get('/hawtio$', (_, res) => res.redirect('/hawtio/'))
 
       const username = 'developer'
-      const login = true
       const proxyEnabled = true
       const plugin = []
       const hawtconfig = {}
 
       // Hawtio backend API mock
-      devServer.app.get('/hawtio/user', (req, res) => res.send(`"${username}"`))
-      devServer.app.post('/hawtio/auth/login', (req, res) => res.send(String(login)))
-      devServer.app.get('/hawtio/auth/logout', (req, res) => res.redirect('/hawtio/login'))
-      devServer.app.get('/hawtio/proxy/enabled', (req, res) => res.send(String(proxyEnabled)))
-      devServer.app.get('/hawtio/plugin', (req, res) => res.send(JSON.stringify(plugin)))
+      let login = true
+      devServer.app.get('/hawtio/user', (_, res) => {
+        login ? res.send(`"${username}"`) : res.sendStatus(403)
+      })
+      devServer.app.post('/hawtio/auth/login', (_, res) => {
+        login = true
+        res.send(String(login))
+      })
+      devServer.app.get('/hawtio/auth/logout', (_, res) => {
+        login = false
+        res.redirect('/hawtio/login')
+      })
+      devServer.app.get('/hawtio/proxy/enabled', (_, res) => res.send(String(proxyEnabled)))
+      devServer.app.get('/hawtio/plugin', (_, res) => res.send(JSON.stringify(plugin)))
 
       // hawtconfig.json mock
-      devServer.app.get('/hawtio/hawtconfig.json', (req, res) => res.send(JSON.stringify(hawtconfig)))
+      devServer.app.get('/hawtio/hawtconfig.json', (_, res) => res.send(JSON.stringify(hawtconfig)))
 
       // Hawtio backend middleware should be run before other middlewares (thus 'unshift')
       // in order to handle GET requests to the proxied Jolokia endpoint.
