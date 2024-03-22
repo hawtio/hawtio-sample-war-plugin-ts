@@ -47,8 +47,11 @@ module.exports = {
         type: 'asset/source',
       })
 
-      // For suppressing sourcemap warnings from dependencies
-      webpackConfig.ignoreWarnings = [/Failed to parse source map/]
+      webpackConfig.ignoreWarnings = [
+        // For suppressing sourcemap warnings coming from some dependencies
+        /Failed to parse source map/,
+        /Critical dependency: the request of a dependency is an expression/,
+      ]
 
       // To resolve errors for @module-federation/utilities 2.x
       // https://github.com/module-federation/universe/issues/827
