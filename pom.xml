@@ -16,15 +16,15 @@
     <maven.compiler.target>11</maven.compiler.target>
 
     <!-- Versions -->
-    <spring-boot-version>3.1.6</spring-boot-version>
-    <hawtio-version>4.0-beta-1</hawtio-version>
+    <spring-boot-version>3.2.3</spring-boot-version>
+    <hawtio-version>4.0.0-RC1</hawtio-version>
     <servlet-api-version>5.0.0</servlet-api-version>
-    <slf4j-version>2.0.9</slf4j-version>
+    <slf4j-version>2.0.12</slf4j-version>
     <logback-version>1.4.14</logback-version>
     <node-version>v20.9.0</node-version>
     <yarn-version>v1.22.21</yarn-version>
     <frontend-maven-plugin-version>1.15.0</frontend-maven-plugin-version>
-    <jetty-version>11.0.18</jetty-version>
+    <jetty-version>11.0.20</jetty-version>
 
     <!-- Path to the Hawtio TypeScript plugin -->
     <plugin.path>sample-plugin</plugin.path>
