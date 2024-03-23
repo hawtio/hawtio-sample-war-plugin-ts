@@ -105,6 +105,9 @@ module.exports = {
         login = false
         res.redirect('/hawtio/login')
       })
+      devServer.app.get('/hawtio/auth/config', (_, res) => {
+        res.send('{}')
+      })
       devServer.app.get('/hawtio/proxy/enabled', (_, res) => res.send(String(proxyEnabled)))
       devServer.app.get('/hawtio/plugin', (_, res) => res.send(JSON.stringify(plugin)))
 

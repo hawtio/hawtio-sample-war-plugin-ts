@@ -1,0 +1,50 @@
+.app-jmx-split {
+  display: flex;
+  flex-direction: row;
+}
+
+.gutter {
+  background-color: #eee;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+}
+
+#app-jmx-tree-view .pf-c-tree-view__list {
+  height: 100%;
+}
+
+#app-jmx-tree-view .pf-c-tree-view__node {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+#app-jmx-tree-view .pf-c-tree-view__node-toggle {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+#app-jmx-tree-view .pf-c-tree-view__node-text {
+  padding-top: 2px;
+  font-size: smaller;
+}
+
+#app-jmx-tree-view .pf-c-tree-view__node-icon {
+  flex-shrink: 0;
+}
+
+#app-jmx-tree-view .pf-c-tree-view__node-text {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#app-jmx-content-main>article {
+  overflow: auto;
+}
