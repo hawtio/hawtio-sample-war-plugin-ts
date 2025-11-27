@@ -16,14 +16,14 @@
     <maven.compiler.target>11</maven.compiler.target>
 
     <!-- Versions -->
-    <hawtio-version>4.0.0</hawtio-version>
+    <hawtio-version>4.6.2</hawtio-version>
     <servlet-api-version>5.0.0</servlet-api-version>
-    <slf4j-version>2.0.12</slf4j-version>
-    <logback-version>1.5.6</logback-version>
+    <slf4j-version>2.0.17</slf4j-version>
+    <logback-version>1.5.21</logback-version>
     <node-version>v20.12.2</node-version>
     <yarn-version>v1.22.22</yarn-version>
     <frontend-maven-plugin-version>1.15.0</frontend-maven-plugin-version>
-    <jetty-version>11.0.20</jetty-version>
+    <jetty-version>12.1.4</jetty-version>
 
     <!-- Path to the Hawtio TypeScript plugin -->
     <plugin.path>sample-plugin</plugin.path>
@@ -148,8 +148,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
+        <groupId>org.eclipse.jetty.ee10</groupId>
+        <artifactId>jetty-ee10-maven-plugin</artifactId>
         <version>${jetty-version}</version>
         <configuration>
           <deployMode>EMBED</deployMode>
@@ -162,7 +162,7 @@
             </resourceBases>
           </webApp>
           <contextHandlers>
-            <contextHandler implementation="org.eclipse.jetty.maven.plugin.MavenWebAppContext">
+            <contextHandler implementation="org.eclipse.jetty.ee10.maven.plugin.MavenWebAppContext">
               <war>${project.build.directory}/deploy/hawtio.war</war>
               <contextPath>/hawtio</contextPath>
             </contextHandler>
