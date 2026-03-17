@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/hawtio/hawtio-sample-war-plugin-ts/actions/workflows/build.yml/badge.svg)](https://github.com/hawtio/hawtio-sample-war-plugin-ts/actions/workflows/build.yml)
 
-This sample demonstrates how to write a plugin for [Hawtio v4](https://github.com/hawtio/hawtio) as a WAR file; WAR plugins are useful when deploying Hawtio and plugins to an application server such as Jetty, WildFly, and Tomcat.
+This sample demonstrates how to write a plugin for [Hawtio v5](https://github.com/hawtio/hawtio) as a WAR file; WAR plugins are useful when deploying Hawtio and plugins to an application server such as Jetty, WildFly, and Tomcat.
 
 ## Key components
 

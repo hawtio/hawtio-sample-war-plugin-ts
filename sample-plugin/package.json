@@ -1,6 +1,6 @@
 {
   "name": "hawtio-sample-plugin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Hawtio sample plugin",
   "main": "./src/main/webapp/app/sample-plugin.js",
   "license": "Apache-2.0",
@@ -12,43 +12,38 @@
     "replace-version": "replace __PACKAGE_VERSION_PLACEHOLDER__ $npm_package_version ./build/static/js -r --include=\"*.js\""
   },
   "dependencies": {
-    "@hawtio/react": "^1.2.2",
-    "@patternfly/react-charts": "~6.94.21",
-    "@patternfly/react-core": "^4.278.1",
-    "@patternfly/react-table": "~4.113.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "@hawtio/react": "^2.0.0",
+    "@patternfly/react-charts": "^8.4.0",
+    "@patternfly/react-code-editor": "^6.4.0",
+    "@patternfly/react-core": "^6.4.0",
+    "@patternfly/react-icons": "^6.4.0",
+    "@patternfly/react-styles": "^6.4.0",
+    "@patternfly/react-table": "^6.4.0",
+    "@patternfly/react-tokens": "^6.4.0",
+    "monaco-editor": "~0.52.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.3"
   },
   "devDependencies": {
-    "@hawtio/backend-middleware": "^1.0.4",
-    "@swc/core": "^1.4.11",
-    "copy-webpack-plugin": "^12.0.2",
-    "css-loader": "^6.10.0",
-    "html-webpack-plugin": "^5.6.0",
-    "jest": "^29.7.0",
+    "@hawtio/backend-middleware": "^1.0.8",
+    "@swc/core": "^1.15.18",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@types/react-router-dom": "^5.3.3",
+    "copy-webpack-plugin": "^14.0.0",
+    "css-loader": "^7.1.4",
+    "html-webpack-plugin": "^5.6.6",
+    "jest": "^30.3.0",
     "replace": "^1.2.2",
-    "style-loader": "^3.3.4",
-    "swc-loader": "^0.2.6",
-    "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "style-loader": "^4.0.0",
+    "swc-loader": "^0.2.7",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.0",
+    "webpack-dev-server": "^5.2.3"
   },
   "resolutions": {
-    "victory-area": "36.8.6",
-    "victory-bar": "36.8.6",
-    "victory-brush-container": "36.8.6",
-    "victory-core": "36.8.6",
-    "victory-cursor-container": "36.8.6",
-    "victory-create-container": "36.8.6",
-    "victory-legend": "36.8.6",
-    "victory-line": "36.8.6",
-    "victory-pie": "36.8.6",
-    "victory-scatter": "36.8.6",
-    "victory-selection-container": "36.8.6",
-    "victory-shared-events": "36.8.6",
-    "victory-voronoi-container": "36.8.6",
-    "victory-zoom-container": "36.8.6"
+    "@module-federation/utilities": "3.1.83"
   },
   "browserslist": {
     "production": [
@@ -62,5 +57,5 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.13.0"
 }

@@ -1,15 +1,13 @@
 import { Attributes, Chart, MBeanNode, Operations } from '@hawtio/react'
 import {
+  Content,
   EmptyState,
-  EmptyStateIcon,
   Nav,
   NavItem,
   NavList,
   PageGroup,
-  PageNavigation,
   PageSection,
   Spinner,
-  Text,
   Title,
   TreeView,
   TreeViewProps,
@@ -27,8 +25,8 @@ export const AppJmx: React.FunctionComponent = () => {
 
   if (!loaded) {
     return (
-      <PageSection>
-        <Spinner isSVG aria-label='Loading custom tree' />
+      <PageSection hasBodyWrapper={false}>
+        <Spinner aria-label='Loading custom tree' />
       </PageSection>
     )
   }
@@ -75,13 +73,16 @@ const AppJmxContent: React.FunctionComponent = () => {
 
   if (!selectedNode) {
     return (
-      <PageSection variant='light' isFilled>
-        <EmptyState variant='full'>
-          <EmptyStateIcon icon={CubesIcon} />
-          <Title headingLevel='h1' size='lg'>
-            Select MBean
-          </Title>
-        </EmptyState>
+      <PageSection isFilled hasBodyWrapper={false}>
+        <EmptyState
+          titleText={
+            <Title headingLevel='h1' size='lg'>
+              Select MBean
+            </Title>
+          }
+          variant='full'
+          icon={CubesIcon}
+        />
       </PageSection>
     )
   }
@@ -93,7 +94,7 @@ const AppJmxContent: React.FunctionComponent = () => {
   ]
 
   const mbeanNav = (
-    <Nav aria-label='MBean Nav' variant='tertiary'>
+    <Nav aria-label='MBean Nav' variant='horizontal-subnav'>
       <NavList>
         {navItems.map(nav => (
           <NavItem key={nav.id} isActive={pathname === `${pluginPath}/${nav.id}`}>
@@ -111,13 +112,15 @@ const AppJmxContent: React.FunctionComponent = () => {
   return (
     <React.Fragment>
       <PageGroup>
-        <PageSection id='app-jmx-content-header' variant='light'>
+        <PageSection id='app-jmx-content-header' hasBodyWrapper={false}>
           <Title headingLevel='h1'>{selectedNode.name}</Title>
-          <Text component='small'>{selectedNode.objectName}</Text>
+          <Content component='small'>{selectedNode.objectName}</Content>
         </PageSection>
-        <PageNavigation>{mbeanNav}</PageNavigation>
+        <PageSection type='tabs' hasBodyWrapper={false}>
+          {mbeanNav}
+        </PageSection>
       </PageGroup>
-      <PageSection id='app-jmx-content-main'>
+      <PageSection id='app-jmx-content-main' hasBodyWrapper={false}>
         <Routes>
           {mbeanRoutes}
           <Route key='root' path='/' element={<Navigate to={navItems[0]?.id ?? ''} />} />
