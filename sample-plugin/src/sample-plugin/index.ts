@@ -38,7 +38,7 @@ configManager.configure(config => {
   config.branding = {
     appName: 'Hawtio Sample WAR Plugin',
     showAppName: true,
-    appLogoUrl: '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png',
+    appLogoUrl: '/sample-plugin/branding/Logo-RedHat-A-Standard-RGB.png',
     css: '/sample-plugin/branding/app.css',
     favicon: '/sample-plugin/branding/favicon.ico',
   }
@@ -57,7 +57,7 @@ configManager.configure(config => {
   }
   config.about.title = 'Hawtio Sample WAR Plugin'
   config.about.description = 'About page for Hawtio Sample WAR Plugin application.'
-  config.about.imgSrc = '/sample-plugin/branding/Logo-RedHat-A-Reverse-RGB.png'
+  config.about.imgSrc = '/sample-plugin/branding/Logo-RedHat-A-Standard-RGB.png'
   if (!config.about.productInfo) {
     config.about.productInfo = []
   }
