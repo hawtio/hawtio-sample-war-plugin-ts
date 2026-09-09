@@ -1,0 +1,3 @@
+{"id":"c0b5e59c-a6c6-44ee-b7e6-358988c6f918","ts":"2026-09-09T06:42:58.423Z","path":"/Users/tasato/projects/hawtio/hawtio-sample-war-plugin-ts/sample-plugin/package.json","version":"1.0.0","taskID":"911e4a60-9e24-4f50-afa4-4639ff01aee4"}
+{"id":"c3edb632-7790-47af-b759-6a5418e7f4a0","ts":"2026-09-09T06:45:49.079Z","path":"/Users/tasato/projects/hawtio/hawtio-sample-war-plugin-ts/sample-plugin/src/sample-plugin/app-jmx/AppJmx.tsx","version":"1.0.0","taskID":"911e4a60-9e24-4f50-afa4-4639ff01aee4"}
+{"id":"7edd1140-0d5a-48dd-9af9-eeb4fbdb306e","ts":"2026-09-09T06:45:59.147Z","path":"/Users/tasato/projects/hawtio/hawtio-sample-war-plugin-ts/sample-plugin/webpack.config.cjs","version":"1.0.0","taskID":"911e4a60-9e24-4f50-afa4-4639ff01aee4"}
