@@ -14,7 +14,7 @@ import {
 } from '@patternfly/react-core'
 import { CubesIcon } from '@patternfly/react-icons'
 import React, { useContext } from 'react'
-import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router'
 import Split from 'react-split'
 import './AppJmx.css'
 import { AppJmxContext, useAppJmx } from './context'
